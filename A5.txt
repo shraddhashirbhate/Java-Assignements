@@ -1,0 +1,390 @@
+44.	Create three classes
+-	Faculty with two data members facultyId and salary and two methods, one intput() method for accepting facultyId as input and another printSalary() to print salary.
+-	FullTimeFaculty that inherits class Faculty with two data members’ basicSalary and allowance. Override input() method in this class that calls super class inut() method and accepts basicSalary and allowance as input. Salary should not be accepted as input but should be calculated using formula (basicSalary + allowance)
+-	PartTimeFaculty that inherits class Faculty with two data members’ workingHours, ratePerHour. Override input() method in this class that calls super class inut() method and accepts workingHours and ratePerHour as input. Salary should not be accepted as input but should be calculated using formula ( workingHour * ratePerHour )
+import java.util.Scanner;
+class Faculty{
+	int facultyId;
+	double salary;
+	void input(int facultyId,double salary){
+		this.facultyId=facultyId;
+		this.salary=salary;
+		}
+	void printSalary(){
+		System.out.println("FacultyId:"+facultyId+" Salary:"+salary);
+	}
+}
+class FullTimeFaculty extends Faculty{
+	double basicSalary;
+	double allowance;
+
+	void input(int facultyId,double basicSalary,double allowance){
+	super.input(facultyId,basicSalary+allowance);
+	 this.basicSalary=basicSalary;
+	 this.allowance=allowance;
+	}
+	void printSalary(){
+		//System.out.println("FacultyId:"+facultyId+" Salary:"+salary);
+		super.printSalary();
+		System.out.println("BasicSalary"+basicSalary+" Allowance:"+allowance);
+	System.out.println(" ");
+	}
+}
+class PartTimeFaculty extends Faculty{
+	double workingHour;
+	double ratePerHour;
+
+	void input(int facultyId,double workingHour,double ratePerHour){
+	super.input(facultyId,workingHour * ratePerHour);
+		this.workingHour=workingHour;
+		this.ratePerHour=ratePerHour;
+	}
+	void printSalary(){
+		//System.out.println("FacultyId:"+facultyId+" Salary:"+salary);
+		super.printSalary();
+		System.out.println("workingHour"+workingHour+" ratePerHour:"+ratePerHour);
+	                     System.out.println(" ");
+	}
+}
+
+class Q44{
+	public static void main(String args[]){
+	Scanner sc=new Scanner(System.in);
+	FullTimeFaculty ft1[]=new FullTimeFaculty[2];
+	PartTimeFaculty pt1[]=new PartTimeFaculty[2];
+	System.out.println("======Enter Full Time Employee details:=======");
+	for(int i=0;i<ft1.length;i++){
+	System.out.println("Enter Faculty Id:");
+	int id=sc.nextInt();
+	System.out.println("Enter Basic Salary:");
+	double bSalary=sc.nextDouble();
+	System.out.println("Enter Allowance:");
+	double allowance=sc.nextDouble();
+	FullTimeFaculty ft=new FullTimeFaculty();
+	ft.input(id,bSalary,allowance);
+                     ft1[i]=ft;
+	
+                     }
+                     System.out.println("======Enter Part Time Employee details:=======");
+	for(int i=0;i<pt1.length;i++){
+	System.out.println("Enter Faculty Id:");
+	int id1=sc.nextInt();
+	System.out.println("Enter Working Hour:");
+	double wh=sc.nextDouble();
+	System.out.println("Enter Rate Per Hour:");
+	double rh=sc.nextDouble();
+	PartTimeFaculty pt=new PartTimeFaculty();
+	pt.input(id1,wh,rh);
+                     pt1[i]=pt;
+	
+                     }
+	System.out.println("  ");
+	System.out.println("=======================================================");
+	System.out.println("Records of the full time Employee: ");
+ 	System.out.println("=======================================================");
+	for(FullTimeFaculty f: ft1){
+	  f.printSalary();
+	}
+
+	System.out.println("=======================================================");
+                      //System.out.println("  ");
+                      System.out.println("Records of the Part time Employee: ");
+ 	System.out.println("=======================================================");
+	for(PartTimeFaculty p: pt1){
+	  p.printSalary();
+	}
+	
+	}
+}
+//////////////2ndMethod///////////////////
+import java.util.Scanner;
+class Faculty{
+	int facultyId;
+	double salary;
+                     void input(int facultyId){
+	this.facultyId=facultyId;
+	}
+	void printSalary(){
+	System.out.println("Faculty Id:"+facultyId+" Salary:"+salary);
+	}
+	void setsalary(double salary){
+	this.salary=salary;
+	}
+}
+class FullTimeFaculty extends Faculty{
+	double BasicSalary;
+	double allowance;
+	void input(int facultyId,double BasicSalary,double allowance){
+	 input(facultyId);
+	this.BasicSalary=BasicSalary;
+	this.allowance=allowance;
+	setsalary(BasicSalary+allowance);
+	}
+}
+class PartTimeFaculty extends Faculty{
+	double workingHour;
+ 	double  ratePerHour;
+	void input(int facultyId,double workingHour ,double ratePerHour){
+	 input(facultyId);
+	this. workingHour= workingHour;
+	this.ratePerHour=ratePerHour;
+	setsalary( workingHour* ratePerHour);
+	}
+}
+class Q044{
+public static void main(String args[]){
+	Scanner sc=new Scanner(System.in);
+	FullTimeFaculty ft=new FullTimeFaculty();
+	PartTimeFaculty tt=new PartTimeFaculty();
+	 ft.input(1,24000,300);
+	tt.input(2,25000,200);                    
+
+	ft.printSalary();
+	tt.printSalary();
+}
+}
+
+45.	Create a class Student with two members : rollno and percentage. Create default and parameterized constructors. Create method show() to display information. Create another class CollegeStudent inherits Student class. Add a new member semester to it. Create default and parameterized constructors. Also override show() method that calls super class show() method and displays semester. Create another class SchoolStudent inherits Student class. Add a new member className(eg 12th ,10th etc.) to it. Create default and parameterized constructors. Also override show() method that calls super class show() method and displays className. Create a class( say Demo) with main method that carries out the operation of the project : -- has array to store objects of any class(Student,  CollegeStudent or SchoolStudent) --create two CollegeStudent  and three SchoolStudent objects and store them inside the array -- display all records from the array -- search record on the basic of rollno and check given rollno is of SchoolStudent or of CollegeStudent. --count how many students are having A grade, if for A grade percentage >75. 
+import java.util.Scanner;
+class Student{
+	int rollNo;
+	double percentage;
+                     Student(){}
+	Student(int rollNo,double percentage){
+	this.rollNo=rollNo;
+	this.percentage=percentage;
+	}
+	void show(){
+	System.out.print("Roll No:"+rollNo+" Percentage:"+percentage+"%");
+	}
+	int getrollno(){
+		return rollNo;
+	}
+	double getper(){
+		return percentage;
+	}
+	
+}
+class CollegeStudent extends Student{
+	double  semester;
+	CollegeStudent(){
+	}
+	CollegeStudent(int rollNo,double percentage,double  semester){
+	super(rollNo,percentage);
+	this.semester=semester;
+	}
+	void show(){
+	super.show();
+	System.out.println(" Semester"+semester);
+	}
+}
+class SchoolStudent extends Student{
+	double className;
+	SchoolStudent(int rollNo,double percentage,double  semester){
+	super(rollNo,percentage);
+	this.className=className;
+	}
+ 	void show(){
+	super.show();
+	System.out.println(" className"+className);
+	}
+	
+}
+class Q045{
+public static void main(String args[]){
+	Scanner sc=new Scanner(System.in);
+	Student s[]={new CollegeStudent(1,90,4),new CollegeStudent(3,70,3),new CollegeStudent	(4,60,8),new SchoolStudent(2,80,12),new SchoolStudent(5,65,11) };
+	
+	for(Student ss: s){
+	ss.show();
+	}
+	int searchno=2;
+	for(Student ss:s){
+	if(ss.getrollno()==searchno){
+                             if(ss instanceof CollegeStudent){
+		System.out.println("this is the roll no of college student");
+		}
+	       else if(ss instanceof SchoolStudent){
+	
+		System.out.println("this is the roll no of school student");
+	
+	}
+	ss.show();
+	}
+	}
+	int count=0;
+	for(Student ss:s){
+	if(ss.getper()>=75){
+	count++;
+	System.out.println("Grade A");
+	ss.show();
+	}
+	}
+	System.out.println("Total Number of grade a students are: "+count);
+}
+}
+
+
+
+
+46.	Create a program to demonstrate the use of instanceof operator or secure reference down casting.
+import java.lang.*;
+
+class Shape {
+
+    int length;
+    int height;
+
+    void show() {
+        System.out.println("Length: " + length + " height: " + height);
+    }
+
+    Shape() {
+    }
+
+    Shape(int length, int height) {
+        this.length = length;
+        this.height = height;
+    }
+
+    void Area() {
+    };
+
+}
+
+class Rectangle extends Shape {
+
+    void Area() {
+        super.show();
+        System.out.println("Area:  " + (length * height));
+    }
+
+    void diagonal() {
+        double a = Math.pow(length, 2) + Math.pow(height, 2);
+        System.out.println(" Diagonal is: " + (Math.sqrt(a)));
+    }
+
+    Rectangle() {
+    }
+
+    Rectangle(int length, int height) {
+        super(length, height);
+    }
+
+}
+
+class Triangle extends Shape {
+    void Area() {
+        super.show();
+        System.out.println("Area:  " + (0.5 * length * height));
+    }
+
+    Triangle() {
+    }
+
+    Triangle(int length, int height) {
+        super(length, height);
+    }
+}
+
+public class Q46 {
+    public static void main(String[] args) {
+
+        Shape sArr[] = { new Rectangle(30, 40), new Triangle(10, 20) };
+
+        sArr[0].Area();
+
+        Rectangle r = (Rectangle) sArr[0];
+        r.diagonal();
+        sArr[1].Area();
+
+    }
+
+}
+///////////2nd method
+import java.util.Scanner;
+import java.lang.*;
+class Shape{
+	 int l;
+	 int h;
+	 double area;
+	Shape(){}
+	Shape(int l,int h){
+	this.l=l;
+	this.h=h;
+	}
+	void display(){
+	System.out.println("Area:"+area);
+	}
+	void setarea(double area){
+	this.area=area;
+	}
+	
+}
+class Rectangle extends Shape{
+	 double diagonal;
+	Rectangle(int l,int h){
+	super(l,h);
+	setarea(l*h);
+	}
+	void diagonal(){
+	diagonal=(Math.pow(l,2)+Math.pow(h,2));
+                       System.out.println("Diagonal of rectangle  is:"+(Math.sqrt(diagonal)));
+	}
+}
+class Triangle extends Shape{
+	Triangle(int l,int h){
+	super(l,h);
+	setarea(0.5*l*h);
+	}
+	
+}
+class Q46{
+public static void main(String args[]){
+	Scanner sc=new Scanner(System.in);
+	Shape sh[]={new Rectangle(4,3),new Triangle(5,6)};
+	Rectangle r=(Rectangle)sh[0];
+	System.out.println("Area of Rectangle:");
+	sh[0].display();
+	System.out.println("Area of Triangle:");
+	sh[1].display();
+	System.out.println("Diagonal of Rectangle:");
+	r.diagonal();
+	r.display();
+}
+}
+
+
+
+47.	Create a program to demonstrate constructor chaining.
+class Abc
+{
+	Abc()
+	{
+		System.out.println("No-arg Constructor Abc");
+	}
+	Abc(int i)
+	{
+		System.out.println("Parameterized Constructor Abc");
+	}
+}
+class Pqr extends Abc
+{
+	Pqr()
+	{
+		
+		System.out.println("No-arg Constructor Pqr");
+	}
+	Pqr(int i)
+	{
+		System.out.println("Parameterized Constructor Pqr");
+	}
+}
+class MainC
+{
+	public static void main(String args[])
+	{
+		Pqr p = new Pqr();
+		Pqr P1 = new Pqr(11);
+	}
+}
