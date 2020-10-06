@@ -1,0 +1,172 @@
+public class Q63 {
+	public static void main(String[] args) throws Exception {
+		FileOutputStream f = new FileOutputStream("D://sample.txt");
+		String str = "hello tthis is sample";
+		byte b[] = str.getBytes();
+		f.write(b);
+		int count = 0;
+		FileInputStream if1 = new FileInputStream("D://sample.txt");
+		
+		int  i = if1.read();
+		while (i != -1) {
+			System.out.print((char) i);
+			if((char)i == 't')
+			{
+				count++;
+			}
+			i=if1.read();
+		}
+		System.out.println();
+		System.out.println("Total count of 't':"+count);
+	}
+}
+
+
+
+
+====================================================================================
+
+64.	Write a program to count no of words in a text file and average word size.
+>   package AssignPractice;
+
+import java.io.BufferedReader;  
+import java.io.FileReader;  
+   
+public class Ques64   
+{  
+    public static void main(String[] args) throws Exception {  
+        String line;  
+        int count = 0;  
+          
+        //Opens a file in read mode  
+        FileReader file = new FileReader("D://CDAC//JAVA//CDAC//Java//TextSol//Assign1.txt");  
+        BufferedReader br = new BufferedReader(file);  
+              
+        //Gets each line till end of file is reached  
+        while((line = br.readLine()) != null) {  
+            //Splits each line into words  
+            String words[] = line.split(" ");  
+            //Counts each word  
+            count = count + words.length;  
+        }  
+          
+        System.out.println("Number of words present in given file: " + count);  
+        br.close();  
+    }  
+}  
+
+-------------------------------------------------------------------------------------------------------------
+
+65.	Write a program to count number of bytes in a image file(jpeg/png/gif).  Also find how much time it will take to upload the file on server if internet speed is 256 bps(bits per second).
+
+>   package AssignPractice;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+ 
+ 
+public class Ques65 {
+	public static void main(String[] args) throws IOException{
+		String dirName="C:\\Users\\Admin\\OneDrive\\Pictures\\Screenshots";
+		ByteArrayOutputStream baos=new ByteArrayOutputStream(1000);
+		BufferedImage img=ImageIO.read(new File(dirName,"dip.png"));
+		ImageIO.write(img, "jpg", baos);
+		baos.flush();
+ 
+		String base64String=Base64.encode(baos.toByteArray());
+		baos.close();
+ 
+		byte[] bytearray = Base64.decode(base64String);
+ 
+		BufferedImage imag=ImageIO.read(new ByteArrayInputStream(bytearray));
+		ImageIO.write(imag, "jpg", new File(dirName,"snap.jpg"));
+	}
+}
+
+-----------------------------------------------------------------------------------------------------------
+
+66.	Write a program to store your shopping details in a binary file(shopping.dat) with information itemName, price, quantity. (Use ObjectOutputStream to store Item class object ).
+
+>   package com.java2novice.files;
+
+import java.io.Serializable;
+
+public class Ques66 implements Serializable {
+
+	private static final long serialVersionUID = -299482035708790407L;
+
+	private String name;
+	private String gender;
+	private int age;
+
+	private String role;
+	// private transient String role;
+
+	public Ques66(String n) {
+		this.name = n;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee:: Name=" + this.name + " Age=" + this.age + " Gender=" + this.gender + " Role=" + this.role;
+	}
+
+}
+
+---------------------------------------------------------------------------------------------------------------
+
+
+67.	Write a program to read data from shopping.dat file creted in above problem and find total money spent on all shopping items. . (Use ObjectInputStream to read Item class object).
+
+>   
+package AssignPractice;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+public class Ques67 {
+
+	public static void main(String[] args) {
+		try {
+			FileInputStream is = new FileInputStream("D://CDAC//JAVA//CDAC//Java//TextSol//Assign1.txt");
+			ObjectInputStream ois = new ObjectInputStream(is);
+			Ques67 emp = (Ques67) ois.readObject();
+			ois.close();
+			is.close();
+			System.out.println(emp.toString());
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+}
